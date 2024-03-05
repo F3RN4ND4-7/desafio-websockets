@@ -38,9 +38,15 @@ const productos = [
 
 // Connection handler
 io.on('connection', (socket) => {
+    console.log("client connected");
+
 
     socket.emit("saludo", "Welcome client, I'm the server");
+
+
     socket.emit('productos', productos);
+
+
     socket.on("mensaje", (data) => {
         console.log(data);
     });

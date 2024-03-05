@@ -1,46 +1,11 @@
-<h1>Hello World! Real Time Products :)</h1>
-    <form id="productForm">
-        <input type="text" id="productName" placeholder="Nombre del producto">
-        <input type="number" id="productPrice" placeholder="Precio del producto">
-        <button type="submit">Agregar Producto</button>
-    </form>
-
-    <ul id="productList">
-        <!-- Aquí se mostrarán los productos -->
-    </ul>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        
-        // Manejar evento de recepción de productos
-        socket.on('productos', function(productos) {
-            actualizarListaProductos(productos);
-        });
-        
-        // Función para enviar nuevo producto al servidor
-        document.getElementById('productForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var productName = document.getElementById('productName').value;
-            var productPrice = document.getElementById('productPrice').value;
-            if (productName && productPrice) {
-                socket.emit('crearProducto', { nombre: productName, precio: productPrice });
-                document.getElementById('productName').value = '';
-                document.getElementById('productPrice').value = '';
-            }
-        });
-
-        // Función para actualizar la lista de productos en la página
-        function actualizarListaProductos(productos) {
-            var productList = document.getElementById('productList');
-            productList.innerHTML = '';
-            productos.forEach(function(producto, indice) {
-                var listItem = document.createElement('li');
-                listItem.textContent = producto.nombre + ' - $' + producto.precio;
-                productList.appendChild(listItem);
-            });
-        }
-    </script>
+<h1>Real Time Products</h1>
+<form id="productForm">
+    <input type="text" id="productName" placeholder="Nombre del producto">
+    <input type="number" id="productPrice" placeholder="Precio del producto">
+    <button type="submit">Agregar Producto</button>
+</form>
+<h2>Lista de productos</h2>
+<ul id="lista-productos"></ul>
 
 <script src="https://cdn.socket.io/4.7.3/socket.io.min.js"></script>
 <script src="js/main.js"></script>
